@@ -33,6 +33,7 @@ input_month.select_by_index(3)
 
 input_year =  Select(web.find_element('xpath','//*[@id="namsinh"]'))
 input_year.select_by_index(51)
+result_list_sim = []
 
 for sim in sims:
     input_sdt = web.find_element('xpath','//*[@id="main_wrap"]/div/div/section[1]/div/div[2]/form/div[1]/div[1]/div[1]/div[1]/input')
@@ -45,6 +46,16 @@ for sim in sims:
     soup = BeautifulSoup(content,"html.parser")
     result = soup.find('p', class_ = 'td_diem')
     print(f'{sim} - {result.text}')
+    result_list_sim.append(f'{sim} - {result.text}')
+
+print(f'length list {len(result_list_sim)}')
+print({result_list_sim[0]})
+with open('sim-tong-diem.csv','a', encoding="utf-8") as file:
+    for line in result_list_sim:
+        print(line)
+        file.write(line)
+        file.write('\n')
+
 
 web.quit()
 
